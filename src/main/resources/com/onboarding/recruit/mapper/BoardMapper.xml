@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.onboarding.recruit.mapper.BoardMapper">
+	<insert id="insert"
+		parameterType="com.onboarding.recruit.domain.BoardVO"
+		useGeneratedKeys="true" keyProperty="bno">
+		insert into
+		TBL_BOARD( cid,
+		position,
+		content, regDate) values ( #{cid},
+		#{position},
+		#{content},
+		DEFAULT )
+	</insert>
+
+	<select id="getBoardByBno"
+		resultType="com.onboarding.recruit.domain.BoardVO">
+		select B.bno, B.cid, C.cname, B.position, B.content, B.regdate
+		from
+		TBL_BOARD B, TBL_COMPANY C
+		where
+			B.bno = #{bno} and B.cid = C.cid
+	</select>
+
+	<delete id="delete">
+		delete from TBL_BOARD where bno = #{bno}
+	</delete>
+
+	<update id="update">
+		update TBL_BOARD
+		set
+		position = #{position},
+		content =
+		#{content},
+		updateDate = NOW()
+		where bno=#{bno}
+	</update>
+
+	<select id="getAnotherBoard" resultType="int">
+		select bno
+		from TBL_BOARD
+		where cid = #{cid}
+
+	</select>
+
+	<select id="getBoardList"
+		resultType="com.onboarding.recruit.domain.BoardVO">
+		select B.bno, B.cid, C.cname, B.position, B.content, B.regdate
+		from
+		TBL_BOARD B, TBL_COMPANY C
+		where
+		<if test='keyword != ""'>
+			(position like CONCAT('%', #{keyword}, '%') OR
+			content like
+			CONCAT('%', #{keyword}, '%'))
+			AND
+		</if>
+
+
+		B.cid = C.cid
+		order by bno
+	</select>
+
+</mapper>
