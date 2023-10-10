@@ -38,14 +38,16 @@
 		where bno=#{bno}
 	</update>
 
-	<select id="getAnotherBoard" resultType="int">
-		select bno
-		from TBL_BOARD
-		where cid = #{cid}
+	<select id="getBoardDetail" resultType="com.onboarding.recruit.domain.BoardVO">
+		select B.bno, B.cid, C.cname, B.position, B.content, B.regdate
+		from
+		TBL_BOARD B, TBL_COMPANY C
+		where
+		B.cid = C.cid AND B.cid = #{cid}
 
 	</select>
 
-	<select id="getBoardList"
+	<select id="getAllBoardList"
 		resultType="com.onboarding.recruit.domain.BoardVO">
 		select B.bno, B.cid, C.cname, B.position, B.content, B.regdate
 		from
