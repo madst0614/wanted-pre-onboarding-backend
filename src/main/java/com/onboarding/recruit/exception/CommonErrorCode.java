@@ -8,9 +8,11 @@ import lombok.RequiredArgsConstructor;
 @Getter
 @RequiredArgsConstructor
 public enum CommonErrorCode implements ErrorCode {
-    BOARD_NOT_FOUND(HttpStatus.NOT_FOUND, "해당 게시물이 존재하지 않습니다.");
-	
+	INVALID_PARAMETER(HttpStatus.BAD_REQUEST, "Invalid parameter included"),
+	BOARD_NOT_FOUND(HttpStatus.NOT_FOUND, "Board not exists"),
+	INTERNAL_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "Internal server error");
+
 	private final HttpStatus httpStatus;
-    private final String message;
+	private final String message;
 
 }
