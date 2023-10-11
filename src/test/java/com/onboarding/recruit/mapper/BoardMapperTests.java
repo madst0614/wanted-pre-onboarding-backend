@@ -108,7 +108,7 @@ public class BoardMapperTests {
 		log.info(board);
 
 		// When
-		board.setContent("수정 후");
+		board = BoardVO.builder().position("업데이트 개발자").cid(1).content("수정 후").build();
 		mapper.update(board);
 
 		// Then
