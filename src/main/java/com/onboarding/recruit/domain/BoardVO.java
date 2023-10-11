@@ -1,14 +1,15 @@
 package com.onboarding.recruit.domain;
 
 import java.util.Date;
-import java.util.List;
+
+import com.onboarding.recruit.dto.BoardDTO;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@Data
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -19,4 +20,5 @@ public class BoardVO {
 	private String position;
 	private String content;
 	private Date regDate;
+
 }
