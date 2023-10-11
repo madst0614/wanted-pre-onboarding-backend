@@ -29,9 +29,8 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public int register(BoardDTO boardDTO) {
 		log.info("<Board Service> register " + boardDTO);
-		BoardVO boardVO = BoardVO.builder().cid(boardDTO.getCid()).cName(boardDTO.getCName())
-				.content(boardDTO.getContent()).position(boardDTO.getPosition()).build();
-		log.info("DTO TO VO" + boardVO);
+		BoardVO boardVO = boardDTO.toVO();
+		log.info("<Board Service> DTO TO VO " + boardVO);
 
 		return mapper.insert(boardVO);
 	}
@@ -44,10 +43,10 @@ public class BoardServiceImpl implements BoardService {
 
 		if (board == null)
 			throw new CustomException(CommonErrorCode.BOARD_NOT_FOUND);
-
-		BoardVO boardVO = BoardVO.builder().cid(boardDTO.getCid()).cName(boardDTO.getCName())
-				.content(boardDTO.getContent()).position(boardDTO.getPosition()).build();
-		log.info("DTO TO VO" + boardVO);
+		
+		log.info("<Board Service> before Modify " + board);
+		BoardVO boardVO = boardDTO.toVO();
+		log.info("<Board Service> DTO TO VO " + boardVO);
 
 		return mapper.update(boardVO);
 	}
@@ -74,8 +73,7 @@ public class BoardServiceImpl implements BoardService {
 
 		List<BoardVO> voList = mapper.getAllBoardList(keyword);
 
-		voList.forEach(vo -> allBoardList.add(BoardDTO.builder().bno(vo.getBno()).cName(vo.getCName())
-				.position(vo.getPosition()).regDate(vo.getRegDate()).build()));
+		voList.forEach(vo -> allBoardList.add(new BoardDTO(vo, null)));
 
 		return allBoardList;
 	}
@@ -97,10 +95,10 @@ public class BoardServiceImpl implements BoardService {
 			}
 		}
 		boardDTO.setCompanyBoardList(companyBoardList);
-		
+
 		if (board == null)
 			throw new CustomException(CommonErrorCode.BOARD_NOT_FOUND);
-		
+
 		boardDTO.setContent(board.getContent());
 		return boardDTO;
 	}

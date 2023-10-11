@@ -2,6 +2,7 @@ package com.onboarding.recruit.service;
 
 import java.util.List;
 
+import com.onboarding.recruit.domain.BoardVO;
 import com.onboarding.recruit.dto.BoardDTO;
 
 public interface BoardService {
