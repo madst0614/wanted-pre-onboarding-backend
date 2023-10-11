@@ -19,7 +19,4 @@ public class BoardVO {
 	private String position;
 	private String content;
 	private Date regDate;
-	
-	// 같은 회사 다른 공고
-	private List<Integer> boardList;
 }
