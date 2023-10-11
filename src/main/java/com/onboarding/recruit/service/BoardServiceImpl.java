@@ -81,7 +81,7 @@ public class BoardServiceImpl implements BoardService {
 	@Transactional
 	@Override
 	public BoardDTO getBoardDetail(BoardDTO boardDTO) {
-		log.info("<Board Service> getBoardDetail which bno is " + boardDTO.getBno());
+		log.info("<Board Service> getBoardDetail bno is " + boardDTO.getBno());
 		List<BoardVO> boardList = mapper.getBoardDetail(boardDTO.getCid());
 
 		List<Integer> companyBoardList = new ArrayList<Integer>();
