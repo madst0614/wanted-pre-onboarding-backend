@@ -94,12 +94,11 @@ public class BoardServiceImpl implements BoardService {
 				board = vo;
 			}
 		}
-		boardDTO.setCompanyBoardList(companyBoardList);
 
 		if (board == null)
 			throw new CustomException(CommonErrorCode.BOARD_NOT_FOUND);
-
-		boardDTO.setContent(board.getContent());
-		return boardDTO;
+		
+	
+		return new BoardDTO(board, companyBoardList);
 	}
 }
