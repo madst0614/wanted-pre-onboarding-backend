@@ -1,5 +1,7 @@
 package com.onboarding.recruit.mapper;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import java.util.List;
 
 import org.junit.jupiter.api.DisplayName;
@@ -29,7 +31,7 @@ public class BoardMapperTests {
 	public void testInsert() {
 		log.info("---------삽입 테스트---------");
 		// Given
-		BoardVO board = BoardVO.builder().position("개발자").cid(1).build();
+		BoardVO board = BoardVO.builder().position("개발자").content("삽입 테스트용").cid(1).build();
 
 		// When
 		log.info("insert " + board);
@@ -37,7 +39,9 @@ public class BoardMapperTests {
 		log.info(board);
 
 		// Then
-		log.info("삽입 테스트 결과 " + mapper.getBoardByBno(board.getBno()));
+		BoardVO result = mapper.getBoardByBno(board.getBno());
+		log.info("삽입 테스트 결과 " + result);
+		assertThat(result).isNotNull().extracting("content").isEqualTo("삽입 테스트용");
 	}
 
 	@Test
@@ -46,14 +50,16 @@ public class BoardMapperTests {
 		log.info("---------삭제 테스트---------");
 
 		// Given
-		BoardVO board = BoardVO.builder().position("삭제용").cid(1).content("삭제용입니다").build();
+		BoardVO board = BoardVO.builder().position("삭제용").cid(1).content("삭제 테스트용").build();
 		mapper.insert(board);
 		log.info("delete this" + mapper.getBoardByBno(board.getBno()));
 		// When
 		mapper.delete(board.getBno());
 
 		// Then
-		log.info("삭제 테스트 결과 " + mapper.getBoardByBno(board.getBno()));
+		BoardVO result = mapper.getBoardByBno(board.getBno());
+		log.info("삭제 테스트 결과 " + result);
+		assertThat(result).isNull();
 	}
 
 	@Test
@@ -61,16 +67,19 @@ public class BoardMapperTests {
 	public void testGetList() {
 		log.info("---------채용 회사 공고들 가져오기 테스트---------");
 		// Given
-		for (int i = 0; i < 10; i++) {
-			mapper.insert(BoardVO.builder().position("회사채용개발자" + i).cid(1).build());
+		for (int i = 0; i < 3; i++) {
+			mapper.insert(BoardVO.builder().position("회사채용개발자" + i).content("회사 공고 리스트 가져오기 테스트" + i).cid(29).build());
 		}
 
 		// When
-		List<BoardVO> boardList = mapper.getBoardDetail(1);
+		List<BoardVO> boardList = mapper.getBoardDetail(29);
 
 		// Then
 		log.info("채용 회사 공고들 가져오기 테스트 결과 ");
 		boardList.forEach(board -> log.info(board));
+		assertThat(boardList).isNotNull().extracting("content").containsOnly("회사 공고 리스트 가져오기 테스트0",
+				"회사 공고 리스트 가져오기 테스트1", "회사 공고 리스트 가져오기 테스트2");
+
 	}
 
 	@Test
@@ -103,6 +112,8 @@ public class BoardMapperTests {
 		mapper.update(board);
 
 		// Then
-		log.info("업데이트 테스트 결과 " + mapper.getBoardByBno(board.getBno()));
+		BoardVO result = mapper.getBoardByBno(board.getBno());
+		log.info("삭제 테스트 결과 " + result);
+		assertThat(result).extracting("content").isEqualTo("수정 후");
 	}
 }
