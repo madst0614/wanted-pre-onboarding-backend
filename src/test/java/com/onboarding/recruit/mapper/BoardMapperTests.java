@@ -63,9 +63,9 @@ public class BoardMapperTests {
 	}
 
 	@Test
-	@DisplayName("채용 회사 공고들 가져오기 테스트")
-	public void testGetList() {
-		log.info("---------채용 회사 공고들 가져오기 테스트---------");
+	@DisplayName("공고 디테일 가져오기 테스트")
+	public void testGetBoardDetail() {
+		log.info("---------공고 디테일 가져오기 테스트---------");
 		// Given
 		for (int i = 0; i < 3; i++) {
 			mapper.insert(BoardVO.builder().position("회사채용개발자" + i).content("회사 공고 리스트 가져오기 테스트" + i).cid(29).build());
@@ -75,7 +75,7 @@ public class BoardMapperTests {
 		List<BoardVO> boardList = mapper.getBoardDetail(29);
 
 		// Then
-		log.info("채용 회사 공고들 가져오기 테스트 결과 ");
+		log.info("공고 디테일 가져오기 테스트 결과");
 		boardList.forEach(board -> log.info(board));
 		assertThat(boardList).isNotNull().extracting("content").containsOnly("회사 공고 리스트 가져오기 테스트0",
 				"회사 공고 리스트 가져오기 테스트1", "회사 공고 리스트 가져오기 테스트2");
@@ -105,15 +105,16 @@ public class BoardMapperTests {
 		// Given
 		BoardVO board = BoardVO.builder().position("업데이트 개발자").cid(1).content("수정 전").build();
 		mapper.insert(board);
-		log.info(board);
+		log.info(board.getBno());
 
 		// When
-		board = BoardVO.builder().position("업데이트 개발자").cid(1).content("수정 후").build();
+		board = BoardVO.builder().bno(board.getBno()).position("업데이트 개발자").cid(1).content("수정 후").build();
 		mapper.update(board);
+		log.info(board.getBno());
 
 		// Then
 		BoardVO result = mapper.getBoardByBno(board.getBno());
-		log.info("삭제 테스트 결과 " + result);
-		assertThat(result).extracting("content").isEqualTo("수정 후");
+		log.info("업데이트 테스트 결과 " + result.getBno());
+		assertThat(result).isNotNull().extracting("content").isEqualTo("수정 후");
 	}
 }

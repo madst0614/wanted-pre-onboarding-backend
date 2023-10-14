@@ -39,30 +39,27 @@
 	</update>
 
 	<select id="getBoardDetail" resultType="com.onboarding.recruit.domain.BoardVO">
-		select B.bno, B.cid, C.cname, B.position, B.content, B.regdate
+		select B.bno, C.cname, B.position, B.content, B.regdate
 		from
 		TBL_BOARD B, TBL_COMPANY C
 		where
-		B.cid = C.cid AND B.cid = #{cid}
+		B.cid = #{cid} AND B.cid = C.cid 
 
 	</select>
 
 	<select id="getAllBoardList"
 		resultType="com.onboarding.recruit.domain.BoardVO">
-		select B.bno, B.cid, C.cname, B.position, B.content, B.regdate
+		select B.bno, C.cname, B.position, B.regdate
 		from
 		TBL_BOARD B, TBL_COMPANY C
 		where
-		<if test='keyword != ""'>
-			(position like CONCAT('%', #{keyword}, '%') OR
-			content like
+		<if test='keyword != null and keyword != ""'>
+			(B.position like CONCAT('%', #{keyword}, '%') OR
+			C.cname like
 			CONCAT('%', #{keyword}, '%'))
 			AND
 		</if>
-
-
 		B.cid = C.cid
-		order by bno
 	</select>
 
 </mapper>

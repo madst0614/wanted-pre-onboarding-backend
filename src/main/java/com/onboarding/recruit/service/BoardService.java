@@ -11,9 +11,9 @@ public interface BoardService {
 	
 	public int modify(BoardDTO boardDTO);
 	
-	public int remove(BoardDTO boardDTO);
+	public int remove(int bno);
 	
 	public List<BoardDTO> getAllBoardList(String keyword);
 	
-	public BoardDTO getBoardDetail(BoardDTO boardDTO);
+	public BoardDTO getBoardDetail(int bno);
 }

@@ -43,7 +43,7 @@ public class BoardServiceImpl implements BoardService {
 
 		if (board == null)
 			throw new CustomException(CommonErrorCode.BOARD_NOT_FOUND);
-		
+
 		log.info("<Board Service> before Modify " + board);
 		BoardVO boardVO = boardDTO.toVO();
 		log.info("<Board Service> DTO TO VO " + boardVO);
@@ -53,15 +53,15 @@ public class BoardServiceImpl implements BoardService {
 
 	@Transactional
 	@Override
-	public int remove(BoardDTO boardDTO) {
-		log.info("<Board Service> remove " + boardDTO);
+	public int remove(int bno) {
+		log.info("<Board Service> remove " + bno);
 
-		BoardVO board = mapper.getBoardByBno(boardDTO.getBno());
+		BoardVO board = mapper.getBoardByBno(bno);
 
 		if (board == null)
 			throw new CustomException(CommonErrorCode.BOARD_NOT_FOUND);
 
-		return mapper.delete(boardDTO.getBno());
+		return mapper.delete(bno);
 	}
 
 	@Transactional
@@ -80,25 +80,27 @@ public class BoardServiceImpl implements BoardService {
 
 	@Transactional
 	@Override
-	public BoardDTO getBoardDetail(BoardDTO boardDTO) {
-		log.info("<Board Service> getBoardDetail bno is " + boardDTO.getBno());
-		List<BoardVO> boardList = mapper.getBoardDetail(boardDTO.getCid());
+	public BoardDTO getBoardDetail(int bno) {
+		log.info("<Board Service> getBoardDetail bno is " + bno);
+		BoardVO boardVO = mapper.getBoardByBno(bno);
+		if (boardVO == null)
+			throw new CustomException(CommonErrorCode.BOARD_NOT_FOUND);
 
+		List<BoardVO> boardList = mapper.getBoardDetail(boardVO.getCid());
+		boardVO = null;
 		List<Integer> companyBoardList = new ArrayList<Integer>();
-		BoardVO board = null;
 
 		for (BoardVO vo : boardList) {
-			if (vo.getBno() != boardDTO.getBno()) {
+			if (vo.getBno() != bno) {
 				companyBoardList.add(vo.getBno());
 			} else {
-				board = vo;
+				boardVO = vo;
 			}
 		}
 
-		if (board == null)
+		if (boardVO == null)
 			throw new CustomException(CommonErrorCode.BOARD_NOT_FOUND);
-		
-	
-		return new BoardDTO(board, companyBoardList);
+
+		return new BoardDTO(boardVO, companyBoardList);
 	}
 }

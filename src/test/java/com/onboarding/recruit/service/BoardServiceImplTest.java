@@ -76,7 +76,7 @@ public class BoardServiceImplTest {
 		when(boardMapper.delete(boardVO.getBno())).thenReturn(1);
 
 		// When
-		int result = boardService.remove(boardDTO);
+		int result = boardService.remove(boardDTO.getBno());
 
 		// Then
 		assertThat(result).isEqualTo(1);
@@ -115,10 +115,11 @@ public class BoardServiceImplTest {
 		voList.add(BoardVO.builder().bno(1).cid(1).cName("원티드").position("자바 개발자").content("원티드 공고").build());
 		voList.add(BoardVO.builder().bno(2).cid(1).cName("원티드").position("자바 개발자").content("원티드 공고").build());
 
+		when(boardMapper.getBoardByBno(0)).thenReturn(boardDTO.toVO());
 		when(boardMapper.getBoardDetail(1)).thenReturn(voList);
 
 		// When
-		BoardDTO result = boardService.getBoardDetail(boardDTO);
+		BoardDTO result = boardService.getBoardDetail(boardDTO.getBno());
 
 		// Then
 		assertThat(result.getBno()).isEqualTo(0);
