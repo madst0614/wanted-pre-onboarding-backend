@@ -26,7 +26,7 @@
 
 ---
 
-```c
+```json
 **// DB**
 **docker-compose up
 
@@ -47,7 +47,7 @@ http://localhost:8080/init**
     
     </aside>
     
-    ```json
+    ```c
     POST http://localhost:8080/board/register
     BODY 
     {"cid":"cid","position":"채용 포지션", "content":"채용 내용"}
