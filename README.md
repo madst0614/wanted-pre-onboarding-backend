@@ -34,6 +34,7 @@ docker-compose up -d
 mvnw.cmd clean install -Dmaven.test.skip=true
 java -jar ./target/recruitAPI-0.0.1-SNAPSHOT.jar
 
+(POST)
 http://localhost:8080/init
 ```
 
