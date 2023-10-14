@@ -13,7 +13,7 @@
 
 ![ERD](assets/ERD.png)
 
-**배포 (Maven)Server + (Docker)DB(MySQL)**
+**배포 (Maven)Server + (Docker)DB:MySQL**
 
 # ⌨️ 사용 스택
 
