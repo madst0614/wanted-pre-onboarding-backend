@@ -29,14 +29,11 @@
 ```java
 git clone https://github.com/madst0614/wanted-pre-onboarding-backend.git
 
-// DB
 docker-compose up -d
 
-// Server
 mvnw.cmd clean install -Dmaven.test.skip=true
 java -jar ./target/recruitAPI-0.0.1-SNAPSHOT.jar
 
-// init data
 http://localhost:8080/init**
 ```
 
