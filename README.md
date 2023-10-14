@@ -9,11 +9,11 @@
 
 # 🖥️ API 구현 방법
 
-![Untitled](%E1%84%91%E1%85%B3%E1%84%85%E1%85%B5%E1%84%8B%E1%85%A9%E1%86%AB%E1%84%87%E1%85%A9%E1%84%83%E1%85%B5%E1%86%BC%20%E1%84%87%E1%85%A2%E1%86%A8%E1%84%8B%E1%85%A6%E1%86%AB%E1%84%83%E1%85%B3%20%E1%84%8B%E1%85%B5%E1%86%AB%E1%84%90%E1%85%A5%E1%86%AB%E1%84%89%E1%85%B5%E1%86%B8%20%E1%84%89%E1%85%A5%E1%86%AB%E1%84%87%E1%85%A1%E1%86%AF%E1%84%80%E1%85%AA%E1%84%8C%E1%85%A6%20a9378d18b27a4ced870fa5fdbbe853b1/Untitled.png)
+![ENV](assets/ENV.png)
 
-![Untitled](%E1%84%91%E1%85%B3%E1%84%85%E1%85%B5%E1%84%8B%E1%85%A9%E1%86%AB%E1%84%87%E1%85%A9%E1%84%83%E1%85%B5%E1%86%BC%20%E1%84%87%E1%85%A2%E1%86%A8%E1%84%8B%E1%85%A6%E1%86%AB%E1%84%83%E1%85%B3%20%E1%84%8B%E1%85%B5%E1%86%AB%E1%84%90%E1%85%A5%E1%86%AB%E1%84%89%E1%85%B5%E1%86%B8%20%E1%84%89%E1%85%A5%E1%86%AB%E1%84%87%E1%85%A1%E1%86%AF%E1%84%80%E1%85%AA%E1%84%8C%E1%85%A6%20a9378d18b27a4ced870fa5fdbbe853b1/Untitled%201.png)
+![ERD](assets/ERD.png)
 
-**배포 <Maven>Server + <Docker>DB(MySQL)**
+**배포 (Maven)Server + (Docker)DB:MySQL**
 
 # ⌨️ 사용 스택
 
@@ -26,9 +26,11 @@
 
 ---
 
-```c
-**// DB**
-**docker-compose up
+```java
+git clone https://github.com/madst0614/wanted-pre-onboarding-backend.git
+
+// DB
+docker-compose up -d
 
 // Server
 mvnw.cmd clean install -Dmaven.test.skip=true
@@ -47,7 +49,7 @@ http://localhost:8080/init**
     
     </aside>
     
-    ```json
+    ```java
     POST http://localhost:8080/board/register
     BODY 
     {"cid":"cid","position":"채용 포지션", "content":"채용 내용"}
@@ -55,7 +57,7 @@ http://localhost:8080/init**
     
     1. 요청
         
-        ```json
+        ```java
         POST http://localhost:8080/board/register
         {"cid":"1", "position":"Spring 개발자", "content":"신입 개발자 모집 합니다."}
         ```
@@ -63,7 +65,7 @@ http://localhost:8080/init**
     2. 리스폰스
         1. 성공
             
-            ```json
+            ```java
             <HTTP status : 201 Created>
             Success
             ```
@@ -77,7 +79,7 @@ http://localhost:8080/init**
     
     </aside>
     
-    ```json
+    ```c
     PUT http://localhost:8080/board/{bno}
     BODY 
     {"position":"채용 포지션", "content":"채용 내용"}
@@ -85,7 +87,7 @@ http://localhost:8080/init**
     
     1. 요청
         
-        ```json
+        ```java
         PUT http://localhost:8080/board/1		
         {"position":"백엔드 개발자", "content":"신입 백엔드 개발자 모집 합니다."}
         ```
@@ -93,14 +95,14 @@ http://localhost:8080/init**
     2. 리스폰스
         1. 성공
             
-            ```json
+            ```java
             <HTTP status : 200 OK>
             Success
             ```
             
         2. 실패
             
-            ```json
+            ```java
             <HTTP status : 404 Not_Found>
             {
                 "code": "BOARD_NOT_FOUND",
@@ -116,27 +118,27 @@ http://localhost:8080/init**
     
     </aside>
     
-    ```json
+    ```java
     DELETE http://localhost:8080/board/{bno}
     ```
     
     1. 요청
         
-        ```json
+        ```java
         DELETE http://localhost:8080/board/1
         ```
         
     2. 리스폰스
         1. 성공
             
-            ```json
+            ```java
             <HTTP status : 200 OK>
             Success
             ```
             
         2. 실패
             
-            ```json
+            ```java
             <HTTP status : 404 Not_Found>
             {
                 "code": "BOARD_NOT_FOUND",
@@ -152,20 +154,20 @@ http://localhost:8080/init**
     
     </aside>
     
-    ```json
+    ```java
     GET http://localhost:8080/board/
     ```
     
     1. 요청
         
-        ```json
+        ```java
         GET http://localhost:8080/board/
         ```
         
     2. 리스폰스
         1. 성공
             
-            ```json
+            ```java
             <HTTP status : 200 OK>
             [
                 {
@@ -224,20 +226,20 @@ http://localhost:8080/init**
     
     </aside>
     
-    ```json
+    ```java
     GET http://localhost:8080/board/?keyword={keyword}
     ```
     
     1. 요청
         
-        ```json
+        ```java
         GET http://localhost:8080/board/?keyword=원티드
         ```
         
     2. 리스폰스
         1. 성공
             
-            ```json
+            ```java
             <HTTP status : 200 OK>
             [
                 {
@@ -272,20 +274,20 @@ http://localhost:8080/init**
     - 해당 회사가 올린 다른 채용공고를 확인할 수 있습니다.
     </aside>
     
-    ```json
+    ```java
     GET http://localhost:8080/board/{bno}
     ```
     
     1. 요청
         
-        ```json
+        ```java
         GET http://localhost:8080/board/3
         ```
         
     2. 리스폰스
         1. 성공
             
-            ```json
+            ```java
             <HTTP status : 200 OK>
             {
                 "bno": 3,
@@ -302,7 +304,7 @@ http://localhost:8080/init**
             
         2. 실패
             
-            ```json
+            ```java
             <HTTP status : 404 Not_Found>
             {
                 "code": "BOARD_NOT_FOUND",
@@ -319,14 +321,15 @@ http://localhost:8080/init**
     - 사용자는 1회만 지원 가능합니다.
     </aside>
     
-    ```json
+    ```java
     POST http://localhost:8080/apply/register
+    BODY
     {"uid":"uid", "bno":"bno"}
     ```
     
     1. 요청
         
-        ```json
+        ```java
         POST http://localhost:8080/apply/register
         {"uid":"1", "bno":"3"}
         ```
@@ -334,14 +337,14 @@ http://localhost:8080/init**
     2. 리스폰스
         1. 성공
             
-            ```json
+            ```java
             <HTTP status : 201 Created>
             Success
             ```
             
         2. 실패
             
-            ```json
+            ```java
             <HTTP status : 409 Conflict>
             {
                 "code": "ALREADY_APPLIED",
