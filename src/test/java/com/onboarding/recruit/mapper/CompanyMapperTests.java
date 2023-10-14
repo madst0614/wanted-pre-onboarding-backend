@@ -22,8 +22,7 @@ public class CompanyMapperTests {
 	@Test
 	public void testInsert() {
 		for (int i = 0; i < 10; i++) {
-			CompanyVO company = new CompanyVO();
-			company.setCname(i + "");
+			CompanyVO company = CompanyVO.builder().cname(i+"").build();
 			log.info(company);
 			mapper.insert(company);
 		}
