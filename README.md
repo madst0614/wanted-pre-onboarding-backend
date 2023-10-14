@@ -29,6 +29,7 @@
 ```java
 git clone https://github.com/madst0614/wanted-pre-onboarding-backend.git
 
+(DB 구축 시간 대기 후 Maven 빌드)
 docker-compose up -d
 
 mvnw.cmd clean install -Dmaven.test.skip=true
