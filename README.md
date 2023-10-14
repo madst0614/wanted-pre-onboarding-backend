@@ -321,6 +321,7 @@ http://localhost:8080/init**
     
     ```json
     POST http://localhost:8080/apply/register
+    BODY
     {"uid":"uid", "bno":"bno"}
     ```
     
