@@ -28,6 +28,7 @@
 
 ```java
 git clone https://github.com/madst0614/wanted-pre-onboarding-backend.git
+
 **// DB**
 **docker-compose up
 
