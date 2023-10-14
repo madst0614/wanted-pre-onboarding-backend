@@ -1,0 +1,12 @@
+version: '3.7'
+services:
+  docker-mysql:
+    build: 
+      context: ./docker-db
+      dockerfile : Dockerfile
+    container_name: docker-mysql
+    volumes:
+      - ./docker-db/store:/var/lib/mysql
+    ports:
+    - 3308:3306
+   
