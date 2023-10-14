@@ -77,7 +77,7 @@ http://localhost:8080/init**
     
     </aside>
     
-    ```json
+    ```c
     PUT http://localhost:8080/board/{bno}
     BODY 
     {"position":"채용 포지션", "content":"채용 내용"}
